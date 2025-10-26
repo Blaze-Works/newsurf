@@ -308,10 +308,8 @@ EQuery(async function () {
             // Animated slide change with enter/exit classes
             function changeSlide(newIndex, dir) {
                 if (newIndex === current) return;
-                const prev = EQuery(slides[current]);
-                const next = EQuery(slides[newIndex]);
-
-                wrapper.css('display:block');
+                const prev = slides[current];
+                const next = slides[newIndex];
 
                 // Clean classes
                 prev.classList.remove('slide-enter-left', 'slide-enter-right', 'slide-exit-left', 'slide-exit-right');
@@ -340,8 +338,7 @@ EQuery(async function () {
                     current = newIndex;
                     // update dots if present
                     if (typeof setActiveDot === 'function') setActiveDot(current);
-                    wrapper.css('display: flex');
-                }, 820); // matches CSS transition (~800ms)
+                }, 620); // matches CSS transition (~600ms)
             }
 
             const prevBtn = wrapper.querySelector('.button-prev');
@@ -360,9 +357,9 @@ EQuery(async function () {
             });
 
             // Keyboard support
-            EQuery(document).keydown(e => {
-                if (e.key === 'ArrowLeft') prevBtn && prevBtn[0].click();
-                if (e.key === 'ArrowRight') nextBtn && nextBtn[0].click();
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') prevBtn && prevBtn.click();
+                if (e.key === 'ArrowRight') nextBtn && nextBtn.click();
             });
 
             // Autoplay
@@ -436,15 +433,8 @@ EQuery(async function () {
                 });
             }
 
-            // Ensure initial state: clear classes and set the initial active slide and dots
-            slides.forEach((s, i) => {
-                s.classList.remove('swiper-slide-active', 'slide-enter-left', 'slide-enter-right', 'slide-exit-left', 'slide-exit-right');
-                if (i !== current) {
-                    // keep non-active slides hidden (CSS will handle display)
-                }
-            });
-            slides[current].classList.add('swiper-slide-active');
-            if (typeof setActiveDot === 'function') setActiveDot(current);
+            // Ensure initial state
+            show(current);
         } catch (err) {
             console.error('initHeroSlider error', err);
         }
