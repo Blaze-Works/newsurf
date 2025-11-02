@@ -499,6 +499,7 @@ section h1, section h2, section h3, section h4, section h5, section h6 {text-ali
 .e-example.dark span.cppfuncvoid {color: rgb(0, 0, 255) !important;}
 .e-example.dark pre, .e-example.dark p {margin: 0px;}
 .tryit-3 {background-color: #059862;font-size: 18px;border: none;display: inline-block;padding: 8px 16px;vertical-align: middle;overflow: hidden;text-decoration: none;text-align: center;cursor: pointer;white-space: nowrap;color: rgb(255, 255, 255) !important;margin: 6px 0px !important;}
+.e-row {/* display: flex; */flex-wrap: nowrap;}
 .row-padding {padding: 8px 8px 0px;}
 .e-row-padding, .e-row-padding>.e-half, .e-row-padding>.e-third, .e-row-padding>.e-twothird, .e-row-padding>.e-threequarter, .e-row-padding>.e-quarter, .e-row-padding>.e-col {padding: 0 8px;}
 .row-padding .e-half, .row-padding .e-third, .row-padding .e-quarter {padding: 0px 8px;}
@@ -527,16 +528,20 @@ section h1, section h2, section h3, section h4, section h5, section h6 {text-ali
 .e-main .prev {float: left;box-shadow: none;background-color: #059862 !important;color: #fff !important;border-color: #04AA6D;font-size: 18px;font-family: 'Source Sans Pro', sans-serif;padding-left: 19px;padding-right: 19px;border-radius: 5px;}
 .e-main .next {float: right;box-shadow: none;background-color: #059862 !important;color: #fff !important;border-color: #04AA6D;font-size: 18px;font-family: 'Source Sans Pro', sans-serif;padding-left: 19px;padding-right: 19px;border-radius: 5px;}
 .e-main .prev:hover, .e-main .next:hover {box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px, rgba(0, 0, 0, 0.19) 0px 6px 20px 0px;}
-.e-select select {display: none}
-.e-selected::after {position: relative;content: "";top: 14px;right: -140px;width: 0;height: 0;border: 6px solid transparent;border-color: #5F6368 transparent transparent transparent;}
-.e-selected.e-select-arrow-active::after {position: relative;content: "";top: -8px;right: -140px;width: 0;height: 0;border: 6px solid transparent;border-color: transparent transparent #5F6368 transparent;}
-.e-selected {color: #202124;background-color: #f1f3f4;border-radius: 5px;padding: 8px 16px;cursor: pointer;user-select: none;width: 200px;cursor: pointer;font-family: inherit;font-size: inherit;line-height: inherit;max-width: 100%;outline: none;padding-bottom: 6px;padding-inline-end: 21px;padding-inline-start: 8px;padding-top: 6px;}
-.e-selected:focus {box-shadow: 0 0 2px 0 rgb(26, 115, 232, 0.40);}
-.e-select-item {position: absolute;z-index: 99;width: 200px;box-shadow: 0 0 2px 0 #000}
-.e-select-item div {width: 100%;color: #202124;padding: 8px 16px;border: 1px solid transparent;border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;cursor: pointer;user-select: none;background-color: #f1f3f4;}
-.e-select-item .e-same-as-selected {background-color: rgba(255, 255, 255, 0.08)}
-.e-select-item div:hover {background-color: rgba(255, 255, 255, 0.08)}
+
+.e-select {margin-bottom: 10px;user-select: none;position: relative;}
+.e-select select {display: none;}
+.e-selected::after {position: relative;content: "";top: 14px;right: -154px;width: 0;height: 0;border: 6px solid transparent;border-color: #5F6368 transparent transparent transparent;}
+.e-selected.e-select-arrow-active::after {position: relative;content: "";top: -8px;right: -154px;width: 0;height: 0;border: 6px solid transparent;border-color: transparent transparent #5F6368 transparent;}
+.e-selected {position: relative;background-color: #f1f3f4;border: none;border-radius: 4px;color: #202124;cursor: pointer;font-family: inherit;font-size: inherit;line-height: inherit;max-width: 100%;outline: none;padding-bottom: 6px;padding-inline-end: 17px;padding-inline-start: 9px;padding-top: 6px;width: 200px;overflow: hidden;word-wrap: none;}
+.e-select-input {position: absolute;background-color: #f1f3f4;border: none;border-radius: 6px;color: #202725;cursor: pointer;font-family: inherit;font-size: inherit;line-height: inherit;max-width: 100%;outline: none;padding-bottom: 6px;padding-inline-end: 8px;padding-inline-start: 17px;padding-top: 6px;width: 90%;}
+.e-selected:focus {box-shadow: 0 0 0 2px #1a73e866;}
+.e-select-item {position: absolute;top: 38px;z-index: 99;width: 200px;overflow: auto;box-shadow: 0 0 2px 0px #000;background-color: #141218;}
+.e-select-item div {width: 100%;color: #202124;padding: 8px 16px;border: 1px solid transparent;border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;cursor: pointer;user-select: none;}
+.e-select-item .e-same-as-selected {background-color: #ffffff18;}
+.e-select-item div:hover {background-color: #ffffff14;}
 .e-select-item.e-select-hidden {display: none;}
+
 .e-input-base-root {color: #fff;cursor: text;display: inline-flex;position: relative;font-size: 1rem;box-sizing: border-box;align-items: center;font-family: "Roboto", "Helvetica", "Arial", sans-serif;font-weight: 400;line-height: 1.1876em;letter-spacing: 0.00938em;margin-bottom: 10px;}
 .e-input-base-input {font: inherit;color: currentColor;width: 100%;border: 0;height: 1.1876em !important;margin: 0 !important;display: block !important;padding: 6px 0 7px !important;min-width: 0;background: none;box-sizing: content-box;animation-name: mui-auto-fill-cancel;-webkit-tap-highlight-color: transparent;}
 .e-input-root {padding: 18.5px 14px !important;}
@@ -782,7 +787,7 @@ span.qsw {float: left;padding-top: 16px;}
   .e-col.sm11 {width: 91.66666%}
   .e-col.sm12 {width: 99.99999%}
 }
-@media (min-width: 850px) {
+@media (min-width: 768px) {
   .e-col.m1 {width: 8.33333%}
   .e-col.m2 {width: 16.66666%}
   .e-col.m3, .e-quarter {width: 24.99999%}
@@ -816,7 +821,11 @@ span.qsw {float: left;padding-top: 16px;}
   .e-hide-large {display: none !important;}
 }
 
-@media (max-width:992px) and (min-width:601px) {
+@media (max-width: 576px) {
+  .e-hide-small {display: none !important}
+}
+
+@media (max-width:786px) {
   .e-hide-medium {display:none!important;}
 }
 
@@ -825,8 +834,4 @@ span.qsw {float: left;padding-top: 16px;}
   .e-collapse {display: none;}
   .e-collapse-width {width: 0px !important;}
   .e-hide-large {display: block;}
-}
-
-@media (max-width:700px) {
-  .e-hide-small {display:none!important;}
 }

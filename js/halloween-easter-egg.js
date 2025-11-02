@@ -15,11 +15,12 @@ class Bat {
         this.ty = this.randomPosition('vertical');
         this.dx = -5 + Math.random() * 10;
         this.dy = -5 + Math.random() * 10;
+        this.theta = 0;
         this.positionUpdateTimer = this.getPositionUpdateTime();
 
         this.frame = Math.random() * this.options.frames;
         this.frame = Math.round(this.frame);
-        this.bat.css(`position: absolute;left: ${this.x}px;top: ${this.y}px;z-index: $${this.options.zIndex};width: ${this.options.width}px;height: ${this.options.height}px;background-image: url('${this.options.image}');background-repeat: no-repeat`);
+        this.bat.css(`position: absolute;left: ${this.x}px;top: ${this.y}px;z-index: $${this.options.zIndex};width: ${this.options.width}px;height: ${this.options.height}px;transistion: all .3s;background-image: url('${this.options.image}');background-repeat: no-repeat`);
         body.append(this.bat);
     }
 
@@ -68,6 +69,10 @@ class Bat {
         this.dx += ddLeft * deltaTime * 25;
         this.dy += ddTop * deltaTime * 25;
 
+        if (this.dx !== 0 || this.dy !== 0) {
+            this.theta = Math.atan2(this.dy, this.dx);
+        }
+
         this.x += this.dx * deltaTime * 25;
         this.y += this.dy * deltaTime * 25;
 
@@ -86,7 +91,7 @@ class Bat {
     }
 
     applyPosition() {
-        this.bat.css(`left: ${this.x}px;top: ${this.y}px`);
+        this.bat.css(`left: ${this.x}px;top: ${this.y}px;transform: rotate(${this.theta}rad);`);
     }
 
     animate(deltaTime) {
@@ -111,7 +116,7 @@ const halloweenBats = function (options) {
         isActiveWindow = true,
         bats = [],
         defaults = {
-            image: '/assets/bats.png', // Path to the image.
+            image: './assets/bats.png', // Path to the image.
             zIndex: 10000, // The z-index you need.
             amount: 20, // Bat amount.
             width: 35, // Image width.
@@ -128,8 +133,6 @@ const halloweenBats = function (options) {
 
     innerWidth = target.width();
     innerHeight = target.height();
-
-    console.log(innerWidth, innerHeight)
 
     plugin = {
         isRunning: false,
@@ -226,9 +229,7 @@ const halloweenFog = function (target) {
             a = Math.random() * (0.5 - 0.2) + 0.2;
 
             draw(sx, sy, e1x, e1y, cp1x, cp1y, cp2x, cp2y, e2x, e2y, cp1xb, cp1yb, cp2xb, cp2yb, a);
-
         }
-
     }
 
     function draw(startCurveX, startCurveY, end1CurveX, end1CurveY, ctrlPt1X, ctrlPt1Y, ctrlPt2X, ctrlPt2Y, end2CurveX, end2CurveY, ctrlPt1Xb, ctrlPt1Yb, ctrlPt2Xb, ctrlPt2Yb, alphaVal) {

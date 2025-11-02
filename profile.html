@@ -11,7 +11,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.3.1/css/all/all.min.css">
-    <link rel="stylesheet" href="./css/equery.css">
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 
@@ -53,107 +52,104 @@
     <nav class="navbar" include-html="./nav.html"></nav>
     <!-- Profile Background -->
     <div class="profile-background">
-        <div class="minecraft-sky-profile"></div>
         <div class="profile-particles">
-            <div class="profile-particle"></div>
-            <div class="profile-particle"></div>
-            <div class="profile-particle"></div>
-            <div class="profile-particle"></div>
-            <div class="profile-particle"></div>
-            <div class="profile-particle"></div>
-            <div class="profile-particle"></div>
-            <div class="profile-particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
         </div>
+    </div>
+
+    <div id="fullscreen-loader">
+        <div class="spinner-container"></div>
     </div>
 
     <!-- Profile Section -->
     <section id="section" class="section">
         <div class="container">
             <!-- Profile Header -->
-            <div class="profile-header">
-                <h1 class="profile-title">Player Profile</h1>
-                <p class="profile-subtitle">Manage your Minecraft account and view your progress</p>
+            <div class="section-header">
+                <h1 class="section-title">Player Profile</h1>
+                <p class="section-subtitle">Manage your Minecraft account and view your progress</p>
             </div>
 
             <!-- Profile Content -->
             <div class="profile-content">
                 <!-- Profile Sidebar -->
-                <div class="profile-sidebar">
+                <div id="profile-sidebar" class="profile-sidebar">
                     <div class="profile-avatar">
-                        <div class="avatar-container">🧙‍♂️</div>
-                        <button class="avatar-change-btn" onclick="changeAvatar()">Change Avatar</button>
+                        <div class="avatar-container"><img class="avatar-img"></div>
+                        <button class="avatar-change-btn">Change Avatar</button>
                     </div>
 
                     <div class="profile-stats">
                         <div class="stat-item">
                             <span class="stat-label">Rank</span>
-                            <span class="stat-value">VIP</span>
+                            <span id="rank" class="stat-value">VIP</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">Level</span>
-                            <span class="stat-value">42</span>
+                            <span id="level" class="stat-value">42</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">Coins</span>
-                            <span class="stat-value">1,250</span>
+                            <span id="coins" class="stat-value">1,250</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">Playtime</span>
-                            <span class="stat-value">127h</span>
+                            <span id="playtime" class="stat-value">127h</span>
                         </div>
                         <div class="stat-item">
                             <span class="stat-label">Joined</span>
-                            <span class="stat-value">Jan 2024</span>
+                            <span id="join-date" class="stat-value">Jan 2024</span>
                         </div>
                     </div>
 
                     <div class="profile-actions">
-                        <button class="profile-action-btn" onclick="editProfile()">✏️ Edit Profile</button>
-                        <button class="profile-action-btn" onclick="changePassword()">🔒 Change Password</button>
-                        <button class="profile-action-btn" onclick="viewSettings()">⚙️ Settings</button>
-                        <button class="profile-action-btn danger" onclick="logout()">🚪 Logout</button>
+                        <button id="edit-btn" class="profile-action-btn" onclick="editProfile()">✏️ Edit Profile</button>
+                        <button id="change--btn" class="profile-action-btn" onclick="changePassword()">🔒 Change Password</button>
+                        <button id="edit-btn" class="profile-action-btn" onclick="viewSettings()">⚙️ Settings</button>
+                        <button id="edit-btn" class="profile-action-btn danger" onclick="logout()">🚪 Logout</button>
                     </div>
                 </div>
 
                 <!-- Profile Main -->
                 <div class="profile-main">
                     <!-- Personal Information -->
-                    <div class="profile-section">
+                    <div id="personal-information" class="profile-section">
                         <div class="section-header">
                             <span class="section-icon">👤</span>
                             <h2 class="section-title">Personal Information</h2>
                         </div>
                         <div class="section-content">
                             <form id="personal-info-form">
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="firstName" class="form-label">First Name</label>
-                                        <input type="text" id="firstName" name="firstName" class="form-input" value="Alex" placeholder="Enter first name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="lastName" class="form-label">Last Name</label>
-                                        <input type="text" id="lastName" name="lastName" class="form-input" value="Minecraft" placeholder="Enter last name">
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <label for="email" class="form-label">Email Address</label>
-                                    <input type="email" id="email" name="email" class="form-input" value="alex@example.com" placeholder="Enter your email">
+                                    <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email">
                                 </div>
                                 <div class="form-group">
                                     <label for="minecraftUsername" class="form-label">Minecraft Username</label>
-                                    <input type="text" id="minecraftUsername" name="minecraftUsername" class="form-input" value="AlexMiner" placeholder="Enter Minecraft username">
+                                    <input type="text" id="minecraftUsername" name="minecraftUsername" class="form-input" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" id="username" name="username" class="form-input" placeholder="Enter your username">
                                 </div>
                                 <div class="form-group">
                                     <label for="bio" class="form-label">Bio</label>
-                                    <textarea id="bio" name="bio" class="form-textarea" placeholder="Tell us about yourself...">Passionate Minecraft player who loves building and exploring. Always up for a new adventure!</textarea>
+                                    <textarea id="bio" name="bio" class="form-textarea" placeholder="Tell us about yourself..."></textarea>
                                 </div>
-                                <button type="submit" class="minecraft-btn btn-primary">💾 Save Changes</button>
+                                <button type="submit" class="minecraft-btn"> Save Changes</button>
                             </form>
                         </div>
                     </div>
 
                     <!-- Achievements -->
-                    <div class="profile-section">
+                    <div id="achievements" class="profile-section">
                         <div class="section-header">
                             <span class="section-icon">🏆</span>
                             <h2 class="section-title">Achievements</h2>
@@ -195,39 +191,39 @@
                     </div>
 
                     <!-- Server Statistics -->
-                    <div class="profile-section">
+                    <div id="server-stats" class="profile-section">
                         <div class="section-header">
                             <span class="section-icon">📊</span>
                             <h2 class="section-title">Server Statistics</h2>
                         </div>
                         <div class="section-content">
                             <div class="server-stats-grid">
-                                <div class="server-stat-card">
+                                <div id="playtime" class="server-stat-card">
                                     <div class="server-stat-icon">⏰</div>
                                     <div class="server-stat-number">127h</div>
                                     <div class="server-stat-label">Total Playtime</div>
                                 </div>
-                                <div class="server-stat-card">
+                                <div id="block-placed" class="server-stat-card">
                                     <div class="server-stat-icon">🏗️</div>
                                     <div class="server-stat-number">156</div>
                                     <div class="server-stat-label">Blocks Placed</div>
                                 </div>
-                                <div class="server-stat-card">
+                                <div id="blocks-mined" class="server-stat-card">
                                     <div class="server-stat-icon">⛏️</div>
                                     <div class="server-stat-number">2,847</div>
                                     <div class="server-stat-label">Blocks Mined</div>
                                 </div>
-                                <div class="server-stat-card">
+                                <div id="deaths" class="server-stat-card">
                                     <div class="server-stat-icon">💀</div>
                                     <div class="server-stat-number">23</div>
                                     <div class="server-stat-label">Deaths</div>
                                 </div>
-                                <div class="server-stat-card">
+                                <div id="mob-kills" class="server-stat-card">
                                     <div class="server-stat-icon">🎯</div>
                                     <div class="server-stat-number">89</div>
                                     <div class="server-stat-label">Mobs Killed</div>
                                 </div>
-                                <div class="server-stat-card">
+                                <div id="achievement" class="server-stat-card">
                                     <div class="server-stat-icon">🏆</div>
                                     <div class="server-stat-number">6</div>
                                     <div class="server-stat-label">Achievements</div>
@@ -243,7 +239,7 @@
     <!-- Footer -->
     <footer class="footer" include-html="./footer.html"></footer>
     <!-- Scripts -->
-    <script type="module" src="./js/script.js"></script>
+    <script type="module" src="./js/profile.js"></script>
 </body>
 
 </html>

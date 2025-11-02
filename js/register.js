@@ -1,5 +1,5 @@
-import { getState, getDB, setState, redirect, fetchWithTimeout } from '/js/util.js';
-import '/js/script.js';
+import { getState, getDB, setState, redirect, fetchWithTimeout } from './util.js';
+import './script.js';
 
 EQuery(function () {
     const signupForm = EQuery('#signup-form');
@@ -8,6 +8,7 @@ EQuery(function () {
     const pswField = signupForm.find('#password');
     const cpswField = signupForm.find('#confirmPassword');
     const showPsw = signupForm.find('.password-toggle-btn');
+    const showCpsw = signupForm.find('.cpassword-toggle-btn');
     const termsCheckbox = signupForm.find('#terms');
     const subCheckbox = signupForm.find('#newsletter');
     const submitBtn = signupForm.find('button[type=submit]');
@@ -17,13 +18,15 @@ EQuery(function () {
     let validpsw = false;
     let equalpsw = false;
     let canShowPsw = false;
+    let canShowCpsw = false;
 
     pswField.attr({ type: canShowPsw ? 'text' : 'password' });
-    cpswField.attr({ type: canShowPsw ? 'text' : 'password' });
-    showPsw.find('span').text(canShowPsw ? 'visibility_off' : 'visibility');
+    cpswField.attr({ type: canShowCpsw ? 'text' : 'password' });
+    showPsw.find('span').text(canShowPsw ? 'visibility_off' : 'visibility');    
+    showCpsw.find('span').text(canShowCpsw ? 'visibility_off' : 'visibility');
 
     getDB(state => {
-        if (state.userdata !== undefined) redirect('/index.html');
+        if (state.userdata !== undefined) redirect('./index.html');
     });
 
     function validPsw(input) {
@@ -94,8 +97,14 @@ EQuery(function () {
         canShowPsw = !canShowPsw;
 
         pswField.attr({ type: canShowPsw ? 'text' : 'password' });
-        cpswField.attr({ type: canShowPsw ? 'text' : 'password' });
         showPsw.find('span').text(canShowPsw ? 'visibility_off' : 'visibility');
+    });
+
+    showCpsw.click(function () {
+        canShowCpsw = !canShowCpsw;
+
+        cpswField.attr({ type: canShowCpsw ? 'text' : 'password' });
+        showCpsw.find('span').text(canShowCpsw ? 'visibility_off' : 'visibility');
     });
 
     validPsw(pswField);
@@ -197,7 +206,7 @@ EQuery(function () {
 
                 if (response.error === undefined) {
                     const state = getState();
-                    state.userdata = response;
+                    state.userdata = response.userdata;
                     setState(state, function () {
                         error.hide().text('');
                         info.show().css('animation: slideInDown 0.3s ease').text('Registration successful! Redirecting...');
@@ -217,5 +226,5 @@ EQuery(function () {
         }
     });
 
-    EQuery('#toLogin').click(() => redirect('/login.html'));
+    EQuery('#toLogin').click(() => redirect('./login.html'));
 });

@@ -4,7 +4,7 @@ import {
     getDB,
     getState,
     clear,
-    redirect,
+    showMessage,
     fetchWithTimeout,
     setState
 } from './util.js';
@@ -117,26 +117,22 @@ EQuery(async function () {
             // Hide loading screen after showing final message
             EQuery('body').addClass('loaded');
             setTimeout(() => {
-                // loadingScreen.classList.add('hidden');
                 EQuery('.preloader').css('display: none');
-                // Start animations after loading
-                setTimeout(() => {
-                    initHeroAnimations();
-                    initHeroSlider();
-                    initCopyIP();
-                    initParticleEffects();
-                    // initMusicPlayer();
-                    initStore();
-                    initScrollAnimations();
-                    initNavigation();
-                    initAdminMessages();
-                    initServerStats();
-                    initMinecraftEffects();
-                    initHeroAnimations();
-                    initEvents();
-                    updateForumList();
-                    if (window.location.pathname.indexOf('forums') !== -1) initForum();
-                }, 500);
+                initHeroAnimations();
+                initHeroSlider();
+                initCopyIP();
+                initParticleEffects();
+                // initMusicPlayer();
+                initStore();
+                initScrollAnimations();
+                initNavigation();
+                initAdminMessages();
+                initServerStats();
+                initMinecraftEffects();
+                initHeroAnimations();
+                initEvents();
+                updateForumList();
+                if (window.location.pathname.indexOf('forums') !== -1) initForum();
             }, 1000);
         }
         
@@ -198,6 +194,8 @@ EQuery(async function () {
                 const prev = EQuery(slides[current]);
                 const next = EQuery(slides[newIndex]);
 
+                wrapper.css('display:block');
+
                 // Clean classes
                 prev.removeClass('slide-enter-left', 'slide-enter-right', 'slide-exit-left', 'slide-exit-right');
                 next.removeClass('slide-enter-left', 'slide-enter-right', 'slide-exit-left', 'slide-exit-right');
@@ -225,6 +223,7 @@ EQuery(async function () {
                     current = newIndex;
                     // update dots if present
                     if (typeof setActiveDot === 'function') setActiveDot(current);
+                    wrapper.css('display: flex');
                 }, 820); // matches CSS transition (~800ms)
             }
 
@@ -245,8 +244,8 @@ EQuery(async function () {
 
             // Keyboard support
             EQuery(document).keydown(e => {
-                if (e.key === 'ArrowLeft') prevBtn && prevBtn.click();
-                if (e.key === 'ArrowRight') nextBtn && nextBtn.click();
+                if (e.key === 'ArrowLeft') prevBtn && prevBtn[0].click();
+                if (e.key === 'ArrowRight') nextBtn && nextBtn[0].click();
             });
 
             // Autoplay
@@ -348,6 +347,7 @@ EQuery(async function () {
         let pointerdown = false;
         let expandNav = false;
         let dropdown = false;
+        console.log(state)
 
         EQuery('body').prepend([pointerDot, pointerRing]);
 
@@ -501,7 +501,7 @@ EQuery(async function () {
             });
         });
 
-        if (state.userdata !== undefined) {
+        if (state !== undefined && state.userdata !== undefined) {
             EQuery('[data-visibility=loggedin]').show();
             EQuery('[data-visibility=loggedout]').hide();
             EQuery('[data-visibility=invalidemail]').hide();
@@ -834,11 +834,7 @@ EQuery(async function () {
 
         const observer = new IntersectionObserver(function (entries) {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    EQuery(entry.target).addClass('visible');
-                } else {
-                    EQuery(entry.target).removeClass('visible');
-                }
+                if (entry.isIntersecting) EQuery(entry.target).addClass('visible');
             });
         }, observerOptions);
 
@@ -1132,30 +1128,13 @@ EQuery(async function () {
         }
     }
 
-    // Show message function
-    function showMessage(text, type = 'info') {
-        // Remove existing messages
-        const existingMessages = EQuery('.message');
-        existingMessages.each((i, msg) => msg.remove());
-
-        const message = EQuery.elemt('div', text, `message ${type}`, null, 'position: fixed;top: 40px;left: 12px;z-index: 9999');
-
-        // Add to top of page
-        EQuery('body').prepend(message);
-
-        // Auto remove after 5 seconds
-        setTimeout(() => {
-            message.remove();
-        }, 5000);
-    }
-
     // Add CSS for fadeOut animation
     const style = EQuery.elemt('style', `
-    @keyframes fadeOut {
-        0% { opacity: 1; transform: scale(1); }
-        100% { opacity: 0; transform: scale(0.8); }
-    }
-`);
+@keyframes fadeOut {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.8); }
+}
+    `);
     EQuery('head').append(style);
 
     // Easter egg: Konami code
@@ -1197,7 +1176,7 @@ EQuery(async function () {
         let canvas = new EQuery.canvas();
         let target = EQuery.elemt('div', [
             EQuery.elemt('div', canvas.domElement).css('position: relative;top: 0;left: 0;height: 100%;width: 100%'),
-            EQuery.elemt('img', null, null, {src: '/assets/circle-samhain.png'}, 'position: absolute;top: 20px;right: 80px;z-index: 10;height: 20%;width: 20%;')
+            EQuery.elemt('img', null, null, {src: './assets/circle-samhain.png'}, 'position: absolute;top: 20px;right: 80px;z-index: 10;height: 20%;width: 20%;')
         ]).css('position: fixed;top:0;left: 0;height: 100vh;width: 100vw;background: #00000013;z-index: 999;animation: fadeIn .3s');
         EQuery('body').append(target);
 
