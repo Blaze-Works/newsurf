@@ -7,9 +7,11 @@ import {
     showMessage,
     fetchWithTimeout,
     setState
-} from '/js/util.js';
-import '/js/halloween-easter-egg.js';
-import { halloweenBats, halloweenFog } from '/js/halloween-easter-egg.js';
+} from './util.js';
+import { PumpkinEasterEgg } from './pumpkin-easter-egg.js';
+import { halloweenBats, halloweenFog } from './halloween-easter-egg.js';
+import { initEvents } from './events.js';
+import { initForum, updateForumList } from './forums.js';
 
 EQuery(async function () {
     initLoadingScreen();
@@ -21,78 +23,16 @@ EQuery(async function () {
     let userdata;
     getDB(state => {
         if (state !== undefined && state.userdata !== undefined) {
-            const loginLink = EQuery('#loginNavLink');
             userdata = state.userdata;
-            loginLink.removeChildren()
-                .removeAttr('href')
-                .click(showUserMenu)
-                .append([EQuery.elemt('i', null, 'fas fa-user me-2'), userdata.username]);
         }
     });
-
-    const ipRevealBtn = EQuery('#ipRevealBtn');
-    const ipDisplay = EQuery('#ipDisplay');
-    const themeIcon = EQuery('#themeIcon');
-
-    function showUserMenu(e) {
-        e.preventDefault();
-        // Create dropdown menu for user options
-        const existingMenu = EQuery('.user-menu');
-        if (existingMenu[0]) {
-            existingMenu.remove();
-            return;
-        }
-
-        const btn1 = EQuery.elemt('a', [
-            EQuery.elemt('i', null, 'fas fa-user me-2'), 'Profile'
-        ], 'd-block text-decoration-none text-dark py-2');
-        const btn2 = EQuery.elemt('a', [
-            EQuery.elemt('i', null, 'fas fa-shopping-bag me-2'), 'My Purchases'
-        ], 'd-block text-decoration-none text-dark py-2');
-        const btn3 = EQuery.elemt('a', [
-            EQuery.elemt('i', null, 'fas fa-sign-out-alt me-2'), 'Logout'
-        ], 'd-block text-decoration-none text-dark py-2');
-
-        btn1.click(() => redirect('/profile.html'));
-        // btn2.click(() => redirect('/profile.html')); IDK
-        btn3.click(() => redirect('/logout.html'));
-
-        const menu = EQuery.elemt('div', [
-            EQuery.elemt('div', [
-                EQuery.elemt('div', [
-                    EQuery.elemt('i', null, 'fas fa-user text-white')
-                ], 'avatar bg-primary rounded-circle d-flex align-items-center justify-content-center me-3', null, 'width: 40px;height: 40px'),
-                EQuery.elemt('div'[
-                    EQuery.elemt('div', userdata.username, 'fw-bold'),
-                    EQuery.elemt('small', userdata.email, 'text-muted')
-                ])
-            ], 'd-flex align-items-center mb-3'),
-            EQuery.elemt('hr'),
-            btn1, btn2, btn3
-        ], 'user-menu position-absolute bg-white border rounded shadow-lg p-3', null, 'top: 100%; right: 0; min-width: 200px; z-index: 1000;');
-
-        const navbar = EQuery('.navbar-nav');
-        const loginItem = navbar.find('li:last-child');
-        loginItem.css('position: relative')
-        loginItem.append(menu);
-
-        // Close menu when clicking outside
-        setTimeout(() => {
-            EQuery(document).click(function closeMenu(e) {
-                if (!menu[0].contains(e.target)) {
-                    menu.remove();
-                    EQuery(document).off('click')
-                }
-            });
-        }, 100);
-    }
 
     getStats();
     setInterval(getStats, 30000);
 
     async function getStats() {
         try {    
-            let response = await fetchWithTimeout('https://surfnetwork-api.onrender.com/get-server-stats', { method: 'post' })
+            let response = await fetchWithTimeout('https://surfnetwork-api.onrender.com/get-server-stats')
 
             EQuery('#ip').text(response.ip);
             EQuery('#serverStatus').addClass(response.status.online ? 'bg-success' : 'bg-fail').text(response.status.online ? 'Online' : 'Offline');
@@ -168,66 +108,11 @@ EQuery(async function () {
    // Loading Screen with rotating messages - stops when loading is done
     function initLoadingScreen() {
         const loadingScreen = EQuery('loading-screen');
-        // const loadingText = document.getElementById('loading-text');
-        
-        // Array of loading messages
-        /* const loadingMessages = [
-            'Loading chunks...',
-            'Spawning entities...',
-            'Generating terrain...',
-            'Building structures...',
-            'Loading textures...',
-            'Preparing world...',
-            'Initializing server...',
-            'Connecting to database...',
-            'Loading player data...',
-            'Almost there...'
-        ];
-        
-        let messageIndex = 0;
-        let isFirstLoad = true;
-        let messageTimer = null;
-        
-        // Function to change loading message
-        function changeLoadingMessage() {
-            if (!isLoading) return; // Stop if loading is done
-            
-            if (isFirstLoad) {
-                // First message stays longer
-                messageTimer = setTimeout(() => {
-                    isFirstLoad = false;
-                    messageIndex = 1;
-                    loadingText.textContent = loadingMessages[messageIndex];
-                    changeLoadingMessage();
-                }, 2000);
-            } else {
-                // Cycle through messages
-                messageTimer = setTimeout(() => {
-                    if (!isLoading) return; // Check again before changing
-                    
-                    messageIndex = (messageIndex + 1) % loadingMessages.length;
-                    loadingText.textContent = loadingMessages[messageIndex];
-                    
-                    // Keep cycling every 2 seconds
-                    changeLoadingMessage();
-                }, 2000);
-            }
-        }
-        
-        // Start cycling messages
-        changeLoadingMessage(); */
-
-        
         let isLoading = true;
 
         // Function to stop loading
         function stopLoading() {
             isLoading = false;
-            // clearTimeout(messageTimer); // Stop message cycling
-            
-            // Show final message
-            // loadingText.textContent = 'Done!';
-            // loadingText.style.animation = 'none';
             
             // Hide loading screen after showing final message
             EQuery('body').addClass('loaded');
@@ -295,14 +180,12 @@ EQuery(async function () {
     // Simple Hero Slider initializer using existing markup (.swiper-slide, .button-prev, .button-next)
     function initHeroSlider() {
         try {
-            const wrapper = document.querySelector('.hero .swiper-wrapper');
-            if (!wrapper) return;
-
-            const slides = Array.from(wrapper.querySelectorAll('.swiper-slide'));
+            const wrapper = EQuery('.hero .swiper-wrapper');
+            const slides = Array.from(wrapper.find('.swiper-slide'));
             if (!slides.length) return;
 
             // Find initial active slide or default to 0
-            let current = slides.findIndex(s => s.classList.contains('swiper-slide-active'));
+            let current = slides.findIndex(s => EQuery(s).hasClass('swiper-slide-active'));
             if (current === -1) current = 0;
 
             // Animated slide change with enter/exit classes
@@ -314,29 +197,29 @@ EQuery(async function () {
                 wrapper.css('display:block');
 
                 // Clean classes
-                prev.classList.remove('slide-enter-left', 'slide-enter-right', 'slide-exit-left', 'slide-exit-right');
-                next.classList.remove('slide-enter-left', 'slide-enter-right', 'slide-exit-left', 'slide-exit-right');
+                prev.removeClass('slide-enter-left', 'slide-enter-right', 'slide-exit-left', 'slide-exit-right');
+                next.removeClass('slide-enter-left', 'slide-enter-right', 'slide-exit-left', 'slide-exit-right');
 
                 // Direction: 'next' means new slide comes from right -> prev exits left
                 if (dir === 'next') {
-                    next.classList.add('slide-enter-right');
+                    next.addClass('slide-enter-right');
                     // Force reflow so transition starts
                     // eslint-disable-next-line no-unused-expressions
                     next.offsetHeight;
-                    next.classList.add('swiper-slide-active');
-                    prev.classList.add('slide-exit-left');
+                    next.addClass('swiper-slide-active');
+                    prev.addClass('slide-exit-left');
                 } else {
-                    next.classList.add('slide-enter-left');
+                    next.addClass('slide-enter-left');
                     // eslint-disable-next-line no-unused-expressions
                     next.offsetHeight;
-                    next.classList.add('swiper-slide-active');
-                    prev.classList.add('slide-exit-right');
+                    next.addClass('swiper-slide-active');
+                    prev.addClass('slide-exit-right');
                 }
 
                 // After animation, clean up classes and set current
                 setTimeout(() => {
-                    prev.classList.remove('swiper-slide-active', 'slide-exit-left', 'slide-exit-right');
-                    next.classList.remove('slide-enter-left', 'slide-enter-right');
+                    prev.removeClass('swiper-slide-active', 'slide-exit-left', 'slide-exit-right');
+                    next.removeClass('slide-enter-left', 'slide-enter-right');
                     current = newIndex;
                     // update dots if present
                     if (typeof setActiveDot === 'function') setActiveDot(current);
@@ -344,16 +227,16 @@ EQuery(async function () {
                 }, 820); // matches CSS transition (~800ms)
             }
 
-            const prevBtn = wrapper.querySelector('.button-prev');
-            const nextBtn = wrapper.querySelector('.button-next');
+            const prevBtn = wrapper.find('.button-prev');
+            const nextBtn = wrapper.find('.button-next');
 
-            if (prevBtn) prevBtn.addEventListener('click', () => {
+            prevBtn.click(() => {
                 const nextIndex = (current - 1 + slides.length) % slides.length;
                 changeSlide(nextIndex, 'prev');
                 resetAutoplay();
             });
 
-            if (nextBtn) nextBtn.addEventListener('click', () => {
+            nextBtn.click(() => {
                 const nextIndex = (current + 1) % slides.length;
                 changeSlide(nextIndex, 'next');
                 resetAutoplay();
@@ -399,51 +282,51 @@ EQuery(async function () {
 
             // Touch/swipe support
             let startX = 0;
-            wrapper.addEventListener('touchstart', (e) => {
+            wrapper.touchstart(e => {
                 startX = e.touches[0].clientX;
             });
-            wrapper.addEventListener('touchend', (e) => {
+            wrapper.touchend(e => {
                 const endX = e.changedTouches[0].clientX;
                 const dx = endX - startX;
                 if (Math.abs(dx) > 50) {
-                    if (dx > 0) prevBtn && prevBtn.click(); else nextBtn && nextBtn.click();
+                    if (dx > 0) prevBtn[0] && prevBtn[0].click();
+                    else nextBtn[0] && nextBtn[0].click();
                 }
             });
 
             // Pause on hover (desktop) and resume on leave
-            wrapper.addEventListener('mouseenter', () => pauseAutoplay());
-            wrapper.addEventListener('mouseleave', () => resumeAutoplay());
+            wrapper.mouseenter(() => pauseAutoplay());
+            wrapper.mouseleave(() => resumeAutoplay());
 
             // Create dot indicators
-            const dotsContainer = document.createElement('div');
-            dotsContainer.className = 'slider-dots';
+            const dotsContainer = EQuery.elemt('div', null, 'slider-dots');
             const dots = [];
             slides.forEach((s, i) => {
-                const dot = document.createElement('div');
-                dot.className = 'dot' + (i === current ? ' active' : '');
-                dot.addEventListener('click', () => {
+                const dot = EQuery.elemt('div', null, `dot${i === current ? ' active' : ''}`);
+                dot.click(() => {
                     changeSlide(i, i > current ? 'next' : 'prev');
                     resetAutoplay();
                 });
                 dots.push(dot);
-                dotsContainer.appendChild(dot);
+                dotsContainer.append(dot);
             });
-            wrapper.appendChild(dotsContainer);
+            wrapper.append(dotsContainer);
 
             function setActiveDot(idx) {
                 dots.forEach((d, i) => {
-                    if (i === idx) d.classList.add('active'); else d.classList.remove('active');
+                    if (i === idx) EQuery(d).addClass('active');
+                    else EQuery(d).removeClass('active');
                 });
             }
 
             // Ensure initial state: clear classes and set the initial active slide and dots
             slides.forEach((s, i) => {
-                s.classList.remove('swiper-slide-active', 'slide-enter-left', 'slide-enter-right', 'slide-exit-left', 'slide-exit-right');
+                EQuery(s).removeClass('swiper-slide-active', 'slide-enter-left', 'slide-enter-right', 'slide-exit-left', 'slide-exit-right');
                 if (i !== current) {
                     // keep non-active slides hidden (CSS will handle display)
                 }
             });
-            slides[current].classList.add('swiper-slide-active');
+            EQuery(slides[current]).addClass('swiper-slide-active');
             if (typeof setActiveDot === 'function') setActiveDot(current);
         } catch (err) {
             console.error('initHeroSlider error', err);
@@ -956,9 +839,9 @@ EQuery(async function () {
         }, observerOptions);
 
         // Add animation classes to elements
-        const animatedElements = EQuery('.feature-card, .product-card, .contact-item, .stat-card, .feature-item').addClass('fade-in');
+        const animatedElements = EQuery('.feature-card, .product-card, .event-card, .forum-category, .contact-item, .stat-card, .feature-item').addClass('fade-in');
         const animatedFadeInUp = EQuery('.h2-baslik, .custom-button, footer .logo, .footer-info, .footer-social').addClass('fadeInUp');
-        const animatedFadeInRight = EQuery('.contact-form, .about-item, .footer-quick-links').addClass('fadeInRight');
+        const animatedFadeInRight = EQuery('.contact-form, .about-item, .footer-quick-links, .forum-cta').addClass('fadeInRight');
         animatedElements.each((i, el) => {
             observer.observe(el);
         });
@@ -1169,40 +1052,6 @@ EQuery(async function () {
             
             return arr;
         }
-
-        /*
-        // Intersection Observer for scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
-                }
-            });
-        }, observerOptions);
-
-        // Observe admin message cards
-        const adminCards = EQuery('.admin-message-card');
-        adminCards.each((i, card) => {
-            EQuery(card).css('animation-play-style: paused');
-            observer.observe(card);
-        });
-
-        // Add click effect to Steve faces
-        const steveFaces = EQuery('.steve-face');
-        steveFaces.click(function() {
-            EQuery(this).css('animation: none');
-            setTimeout(() => {
-                EQuery(this).css('animation: steveBounce 2s ease-in-out infinite');
-            }, 100);
-            
-            // Show fun message
-            showMessage('Steve says: "Thanks for clicking!" 🎮', 'success');
-        });*/
     }
 
     // Minecraft-specific effects
@@ -1291,14 +1140,18 @@ EQuery(async function () {
     // Easter egg: Konami code
     let konamiCode = {};
     const easterEggs = {
-        '38,38,40,40,37,39,37,39,66,65': function () {
+        'ArrowUp,ArrowUp,ArrowDown,ArrowDown,ArrowLeft,ArrowRight,ArrowLeft,ArrowRight,b,a': function () {
             EQuery('body>* *').css('animation: rainbow 2s ease-in-out infinite');
             showMessage('🎉 Party easter egg 🎉', 'success');
             setTimeout(() => {
                 EQuery('body>* *').css('animation: none');
             }, 6000);
         },
-        '38,39,38,39,40,37,40,37,72,65,76,76,79,87,69,69,78': halloweenEasterEgg
+        'ArrowUp,ArrowRight,ArrowUp,ArrowRight,ArrowDown,ArrowLeft,ArrowDown,ArrowLeft,h,a,l,l,o,w,e,e,n': halloweenEasterEgg,
+        '3,1,h,a,l,l,o,w,e,e,n': function () {
+            const easterEgg = new PumpkinEasterEgg();
+            easterEgg.triggerPumpkinAnimation();
+        }
     }
 
     for (let codes in easterEggs) {
@@ -1307,7 +1160,7 @@ EQuery(async function () {
 
     EQuery(document).keydown(function (e) {
         for (let codes in easterEggs) {
-            konamiCode[codes].push(e.keyCode);
+            konamiCode[codes].push(e.key);
             if (konamiCode[codes].length > codes.split(',').length) {
                 konamiCode[codes].shift();
             }

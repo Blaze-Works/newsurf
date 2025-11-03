@@ -1,5 +1,5 @@
-import '/js/equery.js';
-import '/js/music-generator.js';
+import './equery.js';
+import './music-generator.js';
 
 let localDB = new EQuery.Storage('surfnetwork-localdb');
 let state, dbReady = false, onDBReady = [];
@@ -95,6 +95,26 @@ async function fetchWithTimeout(url, options = {}, timeout = 5000) {
         } else throw error;
     }
 }
+
+function extractQuery() {
+    let arr = {};
+    let query = new URLSearchParams(window.location.search);
+    query.forEach((v, k) => {
+        arr[k] = v;
+    });
+    return arr;
+}
+
+function remainderQuery(d) {
+    let query = extractQuery();
+    let s = '';
+    delete query[d];
+    for (let key in query) {
+        s += `&${key}=${query[key]}`;
+    }
+    return s;
+}
+
 
 function reload() {
     save();
