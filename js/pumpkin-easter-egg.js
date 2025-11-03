@@ -1,40 +1,12 @@
 // Pumpkin Easter Egg
 class PumpkinEasterEgg {
-    constructor() {
-        this.pattern = '31halloween';
-        this.currentInput = '';
-        this.initializeEventListener();
-    }
-
-    initializeEventListener() {
-        document.addEventListener('keydown', (e) => {
-            this.handleKeyPress(e.key.toLowerCase());
-        });
-    }
-
-    handleKeyPress(key) {
-        this.currentInput += key;
-        
-        // Keep only the last N characters where N is the pattern length
-        if (this.currentInput.length > this.pattern.length) {
-            this.currentInput = this.currentInput.slice(-this.pattern.length);
-        }
-
-        if (this.currentInput === this.pattern) {
-            this.triggerPumpkinAnimation();
-            this.currentInput = ''; // Reset input
-        }
-    }
-
     triggerPumpkinAnimation() {
         // Create pumpkin element
-        const pumpkin = document.createElement('div');
-        pumpkin.className = 'evil-pumpkin';
-        document.body.appendChild(pumpkin);
+        const pumpkin = EQuery.elemt('div', null, 'evil-pumpkin');
+        EQuery('body').append(pumpkin);
 
         // Create CSS for the pumpkin
-        const style = document.createElement('style');
-        style.textContent = `
+        const style = EQuery.elemt('style', `
             .evil-pumpkin {
                 position: fixed;
                 width: 100px;
@@ -85,8 +57,8 @@ class PumpkinEasterEgg {
                     opacity: 0.3;
                 }
             }
-        `;
-        document.head.appendChild(style);
+        `);
+        EQuery('head').append(style);
 
         // Add spooky sound
         const audio = new Audio('../assets/evil-laugh.mp3');
@@ -95,7 +67,7 @@ class PumpkinEasterEgg {
 
         // Trigger animation
         requestAnimationFrame(() => {
-            pumpkin.classList.add('animated');
+            pumpkin.addClass('animated');
         });
 
         // Reload page after animation
@@ -105,8 +77,5 @@ class PumpkinEasterEgg {
     }
 }
 
-// Initialize the easter egg
-const pumpkinEasterEgg = new PumpkinEasterEgg();
-
 // Export for use in other modules if needed
-export default pumpkinEasterEgg;
+export { PumpkinEasterEgg };

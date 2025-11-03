@@ -1,11 +1,12 @@
+import '/js/equery.js';
+
 // Event join functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const eventButtons = document.querySelectorAll('.event-card .minecraft-btn');
+function initEvents() {
+    const eventButtons = EQuery('.event-card .minecraft-btn');
     
     // Create popup template
-    const popup = document.createElement('div');
-    popup.className = 'event-popup';
-    popup.innerHTML = `
+    const popup = EQuery.elemt('div', null, 'event-popup');
+    popup.html(`
         <div class="event-popup-content">
             <div class="event-popup-header">
                 <h3>Event Joined!</h3>
@@ -19,46 +20,43 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
         </div>
-    `;
-    document.body.appendChild(popup);
+    `);
+    EQuery('body').append(popup);
 
-    const closePopup = popup.querySelector('.close-popup');
-    closePopup.addEventListener('click', () => {
-        popup.classList.remove('show');
+    const closePopup = popup.find('.close-popup');
+    closePopup.click(() => {
+        popup.removeClass('show');
     });
 
     // Event join handler
-    eventButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const eventCard = this.closest('.event-card');
-            const eventName = eventCard.querySelector('h3').textContent;
-            const eventTime = eventCard.querySelector('.event-time').textContent;
+    eventButtons.click(function() {
+        const eventCard = this.closest('.event-card');
+        const eventName = EQuery(eventCard).find('h3').text();
+        const eventTime = EQuery(eventCard).find('.event-time').text();
+        
+        // Store event in localStorage
+        const joinedEvents = JSON.parse(localStorage.getItem('joinedEvents') || '[]');
+        const eventData = {
+            name: eventName,
+            time: eventTime,
+            date: new Date().toISOString()
+        };
+        
+        if (!joinedEvents.find(event => event.name === eventName)) {
+            joinedEvents.push(eventData);
+            localStorage.setItem('joinedEvents', JSON.stringify(joinedEvents));
             
-            // Store event in localStorage
-            const joinedEvents = JSON.parse(localStorage.getItem('joinedEvents') || '[]');
-            const eventData = {
-                name: eventName,
-                time: eventTime,
-                date: new Date().toISOString()
-            };
+            // Update popup content
+            popup.find('.event-name').test(eventName);
+            popup.find('.event-time').text(eventTime);
             
-            if (!joinedEvents.find(event => event.name === eventName)) {
-                joinedEvents.push(eventData);
-                localStorage.setItem('joinedEvents', JSON.stringify(joinedEvents));
-                
-                // Update popup content
-                popup.querySelector('.event-name').textContent = eventName;
-                popup.querySelector('.event-time').textContent = eventTime;
-                
-                // Show popup
-                popup.classList.add('show');
-                
-                // Update button state
-                this.textContent = 'Joined';
-                this.disabled = true;
-                this.classList.add('joined');
-            }
-        });
+            // Show popup
+            popup.addClass('show');
+            
+            // Update button state
+            this.disabled = true;
+            EQuery(this).addClass('joined').text('Joined');
+        }
     });
     
     // Check and restore button states for previously joined events
@@ -74,4 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
             button.classList.add('joined');
         }
     });
-});
+};
+
+export { initEvents };

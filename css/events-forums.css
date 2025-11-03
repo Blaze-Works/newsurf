@@ -105,6 +105,7 @@
     border-radius: 4px;
     padding: 20px;
     margin-bottom: 15px;
+    cursor: pointer;
     transition: all 0.3s ease;
 }
 
@@ -195,6 +196,8 @@
 .modal-body {
     padding: 20px;
 }
+
+.modal-body form {border: none}
 
 .modal-body .form-group {
     margin-bottom: 20px;
