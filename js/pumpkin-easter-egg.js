@@ -1,5 +1,6 @@
 // Pumpkin Easter Egg
 class PumpkinEasterEgg {
+<<<<<<< HEAD
     triggerPumpkinAnimation() {
         // Create pumpkin element
         const pumpkin = EQuery.elemt('div', null, 'evil-pumpkin');
@@ -7,6 +8,43 @@ class PumpkinEasterEgg {
 
         // Create CSS for the pumpkin
         const style = EQuery.elemt('style', `
+=======
+    constructor() {
+        this.pattern = '31halloween';
+        this.currentInput = '';
+        this.initializeEventListener();
+    }
+
+    initializeEventListener() {
+        document.addEventListener('keydown', (e) => {
+            this.handleKeyPress(e.key.toLowerCase());
+        });
+    }
+
+    handleKeyPress(key) {
+        this.currentInput += key;
+        
+        // Keep only the last N characters where N is the pattern length
+        if (this.currentInput.length > this.pattern.length) {
+            this.currentInput = this.currentInput.slice(-this.pattern.length);
+        }
+
+        if (this.currentInput === this.pattern) {
+            this.triggerPumpkinAnimation();
+            this.currentInput = ''; // Reset input
+        }
+    }
+
+    triggerPumpkinAnimation() {
+        // Create pumpkin element
+        const pumpkin = document.createElement('div');
+        pumpkin.className = 'evil-pumpkin';
+        document.body.appendChild(pumpkin);
+
+        // Create CSS for the pumpkin
+        const style = document.createElement('style');
+        style.textContent = `
+>>>>>>> 90eb11d (added easter eggs and alot more)
             .evil-pumpkin {
                 position: fixed;
                 width: 100px;
@@ -57,8 +95,13 @@ class PumpkinEasterEgg {
                     opacity: 0.3;
                 }
             }
+<<<<<<< HEAD
         `);
         EQuery('head').append(style);
+=======
+        `;
+        document.head.appendChild(style);
+>>>>>>> 90eb11d (added easter eggs and alot more)
 
         // Add spooky sound
         const audio = new Audio('../assets/evil-laugh.mp3');
@@ -67,7 +110,11 @@ class PumpkinEasterEgg {
 
         // Trigger animation
         requestAnimationFrame(() => {
+<<<<<<< HEAD
             pumpkin.addClass('animated');
+=======
+            pumpkin.classList.add('animated');
+>>>>>>> 90eb11d (added easter eggs and alot more)
         });
 
         // Reload page after animation
@@ -77,5 +124,13 @@ class PumpkinEasterEgg {
     }
 }
 
+<<<<<<< HEAD
 // Export for use in other modules if needed
 export { PumpkinEasterEgg };
+=======
+// Initialize the easter egg
+const pumpkinEasterEgg = new PumpkinEasterEgg();
+
+// Export for use in other modules if needed
+export default pumpkinEasterEgg;
+>>>>>>> 90eb11d (added easter eggs and alot more)
