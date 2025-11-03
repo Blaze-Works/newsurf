@@ -308,8 +308,10 @@ EQuery(async function () {
             // Animated slide change with enter/exit classes
             function changeSlide(newIndex, dir) {
                 if (newIndex === current) return;
-                const prev = slides[current];
-                const next = slides[newIndex];
+                const prev = EQuery(slides[current]);
+                const next = EQuery(slides[newIndex]);
+
+                wrapper.css('display:block');
 
                 // Clean classes
                 prev.classList.remove('slide-enter-left', 'slide-enter-right', 'slide-exit-left', 'slide-exit-right');
@@ -338,6 +340,7 @@ EQuery(async function () {
                     current = newIndex;
                     // update dots if present
                     if (typeof setActiveDot === 'function') setActiveDot(current);
+                    wrapper.css('display: flex');
                 }, 820); // matches CSS transition (~800ms)
             }
 
@@ -357,9 +360,9 @@ EQuery(async function () {
             });
 
             // Keyboard support
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowLeft') prevBtn && prevBtn.click();
-                if (e.key === 'ArrowRight') nextBtn && nextBtn.click();
+            EQuery(document).keydown(e => {
+                if (e.key === 'ArrowLeft') prevBtn && prevBtn[0].click();
+                if (e.key === 'ArrowRight') nextBtn && nextBtn[0].click();
             });
 
             // Autoplay
