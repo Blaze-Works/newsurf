@@ -82,6 +82,7 @@
     cursor: not-allowed;
 }
 
+<<<<<<< HEAD
 /* Forums Section */
 .forum {
     background: #000;
@@ -199,6 +200,8 @@
 .forum-category-body .pagination a:not(.disabled):hover {color: var(--text-primary);cursor: pointer;}
 
 
+=======
+>>>>>>> 94aa3ce ()
 /* Forums Page */
 .forums-page {
     padding-top: 150px;
@@ -251,7 +254,10 @@
 }
 
 .topic-preview {
+<<<<<<< HEAD
     word-wrap: break-word;
+=======
+>>>>>>> 94aa3ce ()
     color: #fff;
     margin-bottom: 15px;
     line-height: 1.6;
@@ -264,3 +270,91 @@
     color: #666;
 }
 
+<<<<<<< HEAD
+=======
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+}
+
+.modal-content {
+    background: #000;
+    border: 2px solid var(--halloween-orange-2);
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--halloween-orange-2);
+}
+
+.modal-header h3 {
+    font-family: 'Minecraft', monospace;
+    font-size: 1.5rem;
+    color: var(--halloween-orange-1);
+    margin: 0;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-body form {border: none}
+
+.modal-body .form-group {
+    margin-bottom: 20px;
+}
+
+.modal-body label {
+    display: block;
+    font-family: 'Minecraft', monospace;
+    color: var(--halloween-orange-2);
+    margin-bottom: 8px;
+}
+
+.modal-body input,
+.modal-body select,
+.modal-body textarea {
+    width: 100%;
+    padding: 10px;
+    background: #111;
+    border: 1px solid var(--halloween-orange-2);
+    border-radius: 4px;
+    color: #fff;
+}
+
+.modal-body input:focus,
+.modal-body select:focus,
+.modal-body textarea:focus {
+    outline: none;
+    border-color: var(--halloween-orange-1);
+}
+
+.modal-body button {
+    width: 100%;
+}
+>>>>>>> 94aa3ce ()
