@@ -24,7 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
             position: fixed;
             width: 100px;
             height: 100px;
+<<<<<<< HEAD
             background-image: url('../assets/icon.pumpkin.png');
+=======
+            background-image: url('./assets/icon.pumpkin.png');
+>>>>>>> 98d74ca (edited  eeaster egg)
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
