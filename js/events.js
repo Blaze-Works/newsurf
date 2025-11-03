@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import './equery.js';
-=======
 import '/js/equery.js';
->>>>>>> 94aa3ce ()
 
 // Event join functionality
 function initEvents() {

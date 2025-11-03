@@ -1,9 +1,6 @@
 /* Minecraft-Inspired CSS with Real Animations */
-<<<<<<< HEAD
 @import url('./equery.css');
 @import url('./events-forums.css');
-=======
->>>>>>> 94aa3ce ()
 
 @font-face {
     font-family: 'Minecraft';
@@ -83,11 +80,7 @@ body {
     transition: all 0.3s ease;
 }
 
-<<<<<<< HEAD
 a {display: inline;height: auto !important;color: #007bff;text-decoration: none;background-color: transparent;text-decoration: none !important;}
-=======
-a {display: inline;color: #007bff;text-decoration: none;background-color: transparent;text-decoration: none !important;}
->>>>>>> 94aa3ce ()
 p {margin: 0 !important}
 img {vertical-align: middle;border-style: none;}
 
@@ -123,11 +116,7 @@ img {vertical-align: middle;border-style: none;}
 }
 
 .preloader {background: #000;width: 100%;height: 100%;display: flex;flex-wrap: wrap;align-items: center;justify-content: center;position: fixed;z-index: 99999;right: 0;top: 0;transition-duration: 1s;-webkit-transition-duration: 1s;transition-timing-function: cubic-bezier(0.86, 0, 0.09, 1);-webkit-transition-timing-function: cubic-bezier(0.86, 0, 0.09, 1);}
-<<<<<<< HEAD
 .loaded .preloader {top: 100vh;}
-=======
-.loaded .preloader {top: 100vh}
->>>>>>> 94aa3ce ()
 .preloader figure {width: 140px;height: 140px;display: flex;align-items: center;justify-content: center;border: 3px solid white;border-radius: 50%;animation: fadeInUp 0.30s;position: relative;}
 .preloader img {height: 100px;display: inline-block;}
 .preloader figure:after {content: "";width: 100%;height: 100%;border-top: 3px solid #fff7f7;border-radius: 50%;position: absolute;left: 0;top: 0;animation: e-spinner-rotate 0.60s infinite;}
@@ -432,11 +421,7 @@ img {vertical-align: middle;border-style: none;}
 }
 
 .nav-container>div {
-<<<<<<< HEAD
     flex-wrap: nowrap;
-=======
-    flex-wrap: nowrap
->>>>>>> 94aa3ce ()
 }
 
 .nav-logo {
@@ -835,32 +820,19 @@ img {vertical-align: middle;border-style: none;}
 .hero .swiper-wrapper .swiper-slide.slide-enter-left { display: flex; }
 
 .hero .swiper-wrapper .swiper-slide { opacity: 0; transform: translateX(100%); transition: transform 0.8s cubic-bezier(.2,.8,.2,1), opacity 0.8s; }
-<<<<<<< HEAD
 .hero .swiper-wrapper .swiper-slide.swiper-slide-active { height: 100vh;opacity: 1; transform: translateX(0); }
 
 /* Enter from right (next) */
 .hero .swiper-wrapper .swiper-slide.slide-enter-right { transform: translateX(100%); opacity: 1; }
 .hero .swiper-wrapper .swiper-slide.slide-enter-right.swiper-slide-active { transform: translateX(0); }
-=======
-.hero .swiper-wrapper .swiper-slide.swiper-slide-active {opacity: 1;transform: translateX(0);}
-
-/* Enter from right (next) */
-.hero .swiper-wrapper .swiper-slide.slide-enter-right {transform: translateX(100%);opacity: 1;}
-.hero .swiper-wrapper .swiper-slide.slide-enter-right.swiper-slide-active {transform: translateX(0);}
->>>>>>> 94aa3ce ()
 
 /* Enter from left (prev) */
 .hero .swiper-wrapper .swiper-slide.slide-enter-left { transform: translateX(-100%); opacity: 1; }
 .hero .swiper-wrapper .swiper-slide.slide-enter-left.swiper-slide-active { transform: translateX(0); }
 
 /* Exit helpers */
-<<<<<<< HEAD
 .hero .swiper-wrapper .swiper-slide.slide-exit-left { transform: translateX(-100%); opacity: 0; }
 .hero .swiper-wrapper .swiper-slide.slide-exit-right { transform: translateX(100%); opacity: 0; }
-=======
-.hero .swiper-wrapper .swiper-slide.slide-exit-left {transform: translateX(-100vw);opacity: 0;width: 0px;padding: 0;transition: width .8s, padding .8s;}
-.hero .swiper-wrapper .swiper-slide.slide-exit-right { transform: translateX(100vw); opacity: 0;width: 0px;padding: 0;transition: width .8s, padding .8s; }
->>>>>>> 94aa3ce ()
 
 /* Make slide content (text) animate smoothly with the slide for a more cohesive feel */
 .swiper-slide .container { transition: transform 0.8s cubic-bezier(.2,.8,.2,1), opacity 0.8s; }
@@ -877,11 +849,7 @@ img {vertical-align: middle;border-style: none;}
 .swiper-wrapper .button-prev, .swiper-wrapper .button-next {background: none;border-image: linear-gradient(to right, #ffffff, #ffffff);background: linear-gradient(#000, #000), linear-gradient(to right, #ff6600, #ff6a07);background-origin: padding-box, border-box;background-repeat: no-repeat;border: 2px solid transparent;}
 .swiper-wrapper .button-prev {width: 60px;height: 60px;line-height: 60px;text-align: center;position: absolute;left: 50px;top: 47%;color: #fff;z-index: 3;font-size: 23px;cursor: pointer;-webkit-transition: all .35s ease-in-out;-moz-transition: all .35s ease-in-out;-ms-transition: all .35s ease-in-out;-o-transition: all .35s ease-in-out;transition: all .35s ease-in-out;border-color: transparent;border-radius: 0.3rem;}
 .swiper-wrapper .button-next {width: 60px;height: 60px;line-height: 60px;text-align: center;position: absolute;right: 50px;top: 47%;color: #fff;z-index: 3;font-size: 23px;cursor: pointer;-webkit-transition: all .35s ease-in-out;-moz-transition: all .35s ease-in-out;-ms-transition: all .35s ease-in-out;-o-transition: all .35s ease-in-out;transition: all .35s ease-in-out;border-color: transparent;border-radius: 0.3rem;}
-<<<<<<< HEAD
 .hakkimizda-bolumu-anasayfa {background: url('../assets/halloween-about-bg1.jpg') center center / cover no-repeat scroll;padding: 32px 0 144px;}
-=======
-.hakkimizda-bolumu-anasayfa {background: url('/assets/halloween-about-bg1.jpg') center center / cover no-repeat scroll;padding: 32px 0 144px;}
->>>>>>> 94aa3ce ()
 .tablo {max-width: 119rem;margin: 0 auto;width: 100%;display: flex;justify-content: center;flex-wrap: wrap;}
 .tablo [class^="tablo-"] {float: left;position: relative;}
 .tablo [class^="tablo-"]:not(:last-child) {margin-right: 0;}
@@ -1148,10 +1116,7 @@ h3.baslik-3s {color: #ff812d;font-family: 'Minecraft', monospace;font-size: 1.8r
 section {
     padding: 100px 0;
     position: relative;
-<<<<<<< HEAD
     z-index: 2;
-=======
->>>>>>> 94aa3ce ()
 }
 
 .section-header {
@@ -1339,11 +1304,7 @@ section {
 
 /* Events Section */
 .events {
-<<<<<<< HEAD
     background: url('../assets/halloween-pattern.jpg') repeat;
-=======
-    background: url('./assets/halloween-pattern.jpg') repeat;
->>>>>>> 94aa3ce ()
     padding: 100px 0;
     position: relative;
 }
@@ -1462,117 +1423,6 @@ section {
     justify-content: center;
 }
 
-<<<<<<< HEAD
-=======
-/* Forums Section */
-.forum {
-    background: #000;
-    padding: 100px 0;
-}
-
-.forum-categories {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-bottom: 50px;
-}
-
-.forum-category {
-    background: #000;
-    border: 2px solid var(--halloween-orange-2);
-    border-radius: 8px;
-    padding: 25px;
-    transition: all 0.3s ease;
-}
-
-.forum-category:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(255, 102, 0, 0.2);
-}
-
-.category-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.category-icon {
-    width: 40px;
-    height: 40px;
-    background: var(--halloween-orange-2);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-}
-
-.category-icon .material-symbols-outlined {
-    font-size: 24px;
-}
-
-.category-header h3 {
-    font-family: 'Minecraft', monospace;
-    font-size: 1.3rem;
-    color: var(--halloween-orange-1);
-    margin: 0;
-}
-
-.category-stats {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 15px;
-    color: #fff;
-    font-family: 'Minecraft', monospace;
-    font-size: 0.9rem;
-}
-
-.latest-post {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.post-title {
-    color: #fff;
-    font-weight: 500;
-}
-
-.post-time {
-    color: var(--halloween-orange-2);
-    font-size: 0.9rem;
-}
-
-.forum-cta {
-    text-align: center;
-    margin-top: 40px;
-}
-
-.forum-cta .minecraft-btn {
-    padding: 15px 40px;
-    font-size: 1.1rem;
-    box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
-}
-
-@media (max-width: 768px) {
-    .events-grid,
-    .forum-categories {
-        grid-template-columns: 1fr;
-    }
-    
-    .event-card,
-    .forum-category {
-        margin: 0 15px;
-    }
-    
-    .category-stats {
-        flex-direction: column;
-        gap: 10px;
-    }
-}
-
->>>>>>> 94aa3ce ()
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -2010,21 +1860,13 @@ form {border: none}
     overflow: hidden;
 }
 
-<<<<<<< HEAD
 .auth-background, .profile-background {
-=======
-.auth-background {
->>>>>>> 94aa3ce ()
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     min-height: 100%;
-<<<<<<< HEAD
     z-index: -1;
-=======
-    z-index: 1;
->>>>>>> 94aa3ce ()
 }
 
 .minecraft-sky-auth {
@@ -2033,11 +1875,7 @@ form {border: none}
     left: 0;
     width: 100%;
     height: 100%;
-<<<<<<< HEAD
     background: url('../assets/halloween-about-bg1.jpg');
-=======
-    background: url('/assets/halloween-about-bg1.jpg');
->>>>>>> 94aa3ce ()
     animation: skyAnimation 20s ease-in-out infinite;
 }
 
@@ -2193,11 +2031,7 @@ form {border: none}
     display: block;
     font-family: 'Minecraft', monospace;
     font-weight: 700;
-<<<<<<< HEAD
     color: #fff;
-=======
-    color: var(--text-primary);
->>>>>>> 94aa3ce ()
     margin-bottom: 8px;
     font-size: 14px;
 }
@@ -2206,11 +2040,7 @@ form {border: none}
     width: 100%;
     padding: 15px;
     background: #000;
-<<<<<<< HEAD
     border: 2px solid var(--halloween-orange-2) !important;
-=======
-    border: 2px solid var(--halloween-orange-2);
->>>>>>> 94aa3ce ()
     border-radius: 0;
     color: var(--text-secondary);
     font-size: 16px;
@@ -2234,18 +2064,11 @@ form {border: none}
     position: relative;
 }
 
-<<<<<<< HEAD
 .password-toggle-btn, .cpassword-toggle-btn {
     position: absolute;
     right: 15px;
     top: 50%;
     display: flex;
-=======
-.password-toggle-btn {
-    position: absolute;
-    right: 15px;
-    top: 50%;
->>>>>>> 94aa3ce ()
     transform: translateY(-50%);
     background: none;
     border: none;
@@ -2255,11 +2078,7 @@ form {border: none}
     transition: color 0.3s ease;
 }
 
-<<<<<<< HEAD
 .password-toggle-btn:hover, .cpassword-toggle-btn:hover {
-=======
-.password-toggle-btn:hover {
->>>>>>> 94aa3ce ()
     color: var(--halloween-orange-2);
 }
 
@@ -2274,11 +2093,8 @@ form {border: none}
 
 .form-options input[type=checkbox] {
     margin-right: 12px;
-<<<<<<< HEAD
     cursor: pointer;
     accent-color: var(--halloween-orange-2);
-=======
->>>>>>> 94aa3ce ()
 }
 
 .form-options a {
@@ -2401,15 +2217,12 @@ form {border: none}
     transform: translateY(-2px);
     box-shadow: 4px 4px 0 var(--minecraft-shadow);
 }
-<<<<<<< HEAD
 .spinner-outer {height: 28px;width: 28px;}
 .spinner-outer .e-spinner {height: 28px;width: 28px;}
 .spinner-outer .e-spinner-circle {border-width: 3px;}
 .e-selected, .e-select-input {background-color: #1a1a1a;color: #fff;box-shadow: inset 0px -4px 3px 0px #ff660017;}
 .e-select-item div {color: #fff;}
 .e-select-item {background-color: #1b1b1b;}
-=======
->>>>>>> 94aa3ce ()
 
 .back-to-home {
     position: absolute;
@@ -2507,7 +2320,6 @@ form {border: none}
 .list-container .badge.success {color: #fff;background-color: #2aaf50;}
 .list-content {padding: 6px;padding-top: 0;margin-left: 41px;border-left: 2px solid #81818180;}
 
-<<<<<<< HEAD
 /* Profile Content */
 .profile-content {
     display: grid;
@@ -2875,11 +2687,6 @@ form {border: none}
 .admin-messages {
     background: #000;
     border-top: 2px solid var(--halloween-orange-2);
-=======
-.admin-messages {
-    background: var(--card-bg);
-    border-top: 2px solid var(--border-color);
->>>>>>> 94aa3ce ()
     border-bottom: 2px solid var(--border-color);
     padding: 100px 0;
 }
@@ -3081,11 +2888,7 @@ form {border: none}
 
 /* Footer */
 .footer {
-<<<<<<< HEAD
     background: url('../assets/footer-h.jpg') no-repeat;
-=======
-    background: url('/assets/footer-h.jpg') no-repeat;
->>>>>>> 94aa3ce ()
     color: var(--minecraft-white);
     padding: 60px 0 20px;
     border-top: 2px solid var(--halloween-orange-2);
@@ -3145,17 +2948,12 @@ form {border: none}
 .footer .footer-menu {width: 100%;display: flex;flex-wrap: wrap;margin: 0;padding: 0;justify-content: center;}
 .footer .menu {margin: 0;padding: 0;}
 .footer .menu li {width: 100%;display: flex;flex-wrap: wrap;align-items: center;margin: 0;padding: 5px 0;list-style: none;}
-<<<<<<< HEAD
 .footer .menu li::before {content: "";width: 11px;height: 4px;display: inline-block;border-radius: 4px;background: #ffffff;margin-right: 9px;}
 .footer .menu li a {position: relative;color: #fff;}
 .footer .menu li a:hover {color: #ff6600;}
 .footer .menu li a::before {background-color: #ff6600;bottom: 0;display: block;height: 3px;width: 0%;content: ""}
 .footer .menu li a::before, .footer .menu li a::after {position: absolute;-webkit-transition: all 0.35s ease;transition: all 0.35s ease;}
 .footer .menu li a:hover:before {width: 100%;opacity: 1}
-=======
-.footer .menu li:before {content: "";width: 11px;height: 4px;display: inline-block;border-radius: 4px;background: #ffffff;margin-right: 9px;}
-.footer .menu li a {color: #fff;}
->>>>>>> 94aa3ce ()
 @media (max-width: 850px) {
     .footer .footer-menu {justify-content: flex-start}
 }
@@ -3207,11 +3005,7 @@ form {border: none}
     }
 
     .nav-container>div {
-<<<<<<< HEAD
         flex-wrap: nowrap;
-=======
-        flex-wrap: nowrap
->>>>>>> 94aa3ce ()
     }
 
     .navbar-expand-md .navbar-collapse {
@@ -3237,13 +3031,8 @@ form {border: none}
 
     .nav-menu {
         position: fixed;
-<<<<<<< HEAD
         left: -100vw;
         top: 0px;
-=======
-        left: -104vw;
-        top: -18px;
->>>>>>> 94aa3ce ()
         flex-direction: column;
         background: var(--bg-secondary);
         width: 330px;
